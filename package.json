@@ -1,0 +1,11 @@
+{
+  "name": "three-onEvent",
+  "version": "1.0.0",
+  "description": "three.js Event Listener",
+  "main": "onEvent.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "York Chan",
+  "license": "MIT"
+}
