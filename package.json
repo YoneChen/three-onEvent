@@ -1,9 +1,16 @@
 {
   "name": "three-onevent",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "three.js Event Listener for click,gaze and so on",
   "main": "onEvent.js",
-  "keywords": ["three","event","listener","webvr","click","gaze"],
+  "keywords": [
+    "three",
+    "event",
+    "listener",
+    "webvr",
+    "click",
+    "gaze"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yorkchan94/three-onEvent.git"
