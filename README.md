@@ -2,13 +2,14 @@
 Add  a EventListener for Mesh in your three.js project.
 
 Here is a quick start example
-### Step1 init onEvent 
+### Step1 
+Init onEvent 
 ```
 //init your events container before render
 THREE.onEvent(myScene,myCamera);
 ```
-### Step2 add eventListener
-like mesh.on(method:String,callback:function)
+### Step2 
+Add eventListener like mesh.on(method:string,callback:function)
 ```
 var geo = new THREE.CubeGeometry(5,5,5);
 var mat = new THREE.MeshBasicMaterial({color:0x00aadd});
@@ -18,7 +19,10 @@ mesh.on('click',function(m) {
 })
 myScene.add(mesh);
 ```
-
+Remove eventListener like mesh.off(method:string)
+```
+mesh.off('click');
+```
 ### More Method
 * method: click,hover,gaze,longGaze
 ```
