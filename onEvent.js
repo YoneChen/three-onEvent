@@ -70,7 +70,7 @@ Object.assign(THREE.Mesh.prototype,{
 		}
 	}
 });
-// WebVR mesh gazer 凝视监听器
+// WebVR mesh on gazer
 listenerList.gaze = function (targetList,camera) {
 	var Gazing = false,targetMesh,obj;
 	var Eye = new THREE.Raycaster();
@@ -102,7 +102,7 @@ listenerList.gaze = function (targetList,camera) {
 	}
 	gazeListener();
 }
-// WebVR long gazer 长凝视监听器
+// WebVR mesh on long gaze
 listenerList.longGaze = function (targetList,camera) {
 	var Gazing = false,targetMesh,obj;
 	var Eye = new THREE.Raycaster();
@@ -140,7 +140,7 @@ listenerList.longGaze = function (targetList,camera) {
 	}
 	gazeListener();
 }
-// mesh onclick 鼠标点击监听器
+// mesh on mouse click 
 listenerList.click = function (targetList,camera) {
 	var targetMesh,obj,Click = false;
 	var Mouse = new THREE.Raycaster();
@@ -168,7 +168,7 @@ listenerList.click = function (targetList,camera) {
 	    }
 	}, false)
 }
-// mesh hover 鼠标悬停监听器
+// mesh on mouse hover
 listenerList.hover = function (targetList,camera) {
 	var targetMesh,obj,Hover = false;
 	var Mouse = new THREE.Raycaster();

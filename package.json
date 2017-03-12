@@ -1,11 +1,20 @@
 {
-  "name": "three-onEvent",
+  "name": "three-onevent",
   "version": "1.0.0",
-  "description": "three.js Event Listener",
+  "description": "three.js Event Listener for click,gaze and so on",
   "main": "onEvent.js",
+  "keywords": ["three","event","listener","webvr","click","gaze"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yorkchan94/three-onEvent.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "York Chan",
+  "bugs": {
+    "url": "https://github.com/yorkchan94/three-onEvent/issues"
+  },
+  "homepage": "https://github.com/yorkchan94/three-onEvent#readme",
   "license": "MIT"
 }

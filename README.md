@@ -1,15 +1,15 @@
 # three-onEvent
-Add  an EventListener for Mesh in your three.js project.
+Add an EventListener for Mesh in your three.js project.
 
-Here is a quick start example
-### Step1 
-Init onEvent 
+## Quick Start 
+1. Init onEvent 
 ```
-//init your events container before render
+// init your events container before render
+// Require THREE.scene and THREE.camera as param
 THREE.onEvent(myScene,myCamera);
 ```
-### Step2 
-Add eventListener like mesh.on(method:string,callback:function)
+2. Add eventListener with 'on'
+* mesh.on(method:string,callback:function)
 ```
 var geo = new THREE.CubeGeometry(5,5,5);
 var mat = new THREE.MeshBasicMaterial({color:0x00aadd});
@@ -19,12 +19,12 @@ mesh.on('click',function(m) {
 })
 myScene.add(mesh);
 ```
-Remove eventListener like mesh.off(method:string)
+3. Remove event with 'off'
 ```
 mesh.off('click');
 ```
-### More Method
-* method: click,hover,gaze,longGaze
+## More Method
+> method: string 'click','hover','gaze','longGaze'
 ```
 // hover eventLisener 
 mesh.on('hover',function(m) {
@@ -43,3 +43,19 @@ mesh.on('gaze',function(m) {
   m.material.color = 0x00aadd;
 })
 ```
+
+## Need Help?
+
+Ask questions [here](https://github.com/yorkchan94/three-onEvent/issues).
+
+## Any advise?
+
+PR welcome [here](https://github.com/yorkchan94/three-onEvent/pulls).
+
+## Contributors
+
+YorkChan <yorkchan94@gmail.com>
+
+## License
+
+MIT
