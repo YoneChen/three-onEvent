@@ -35,9 +35,14 @@ Object.assign(THREE.Mesh.prototype,{
 		} else {
 			console.warn("There is no method called '" + method + "';");
 		}
+		return this;
 	},
 	off: function(method) {
-		delete TargetList[method][this.id];
+		if (EventListeners.hasOwnProperty(method)) {
+			delete TargetList[method][this.id];
+		} else {
+			console.warn("There is no method called '" + method + "';");
+		}
 	}
 });
 // WebVR mesh gazer 凝视监听器
