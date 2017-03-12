@@ -1,4 +1,29 @@
+(function (definition) {
+    "use strict";
+    if (!(window.THREE || THREE)) {
+    	throw new Error("This module is dependent from 'three.js,add this file first.");
+    }
+    // CommonJS
+    if (typeof exports === "object" && typeof module === "object") {
+        module.exports = definition(window.THREE || THREE);
 
+    // RequireJS
+    } else if (typeof define === "function" && define.amd) {
+        define(definition);
+
+    // <script>
+    } else if (typeof window !== "undefined" || typeof self !== "undefined") {
+        // Prefer window over self for add-on scripts. Use self for
+        // non-windowed contexts.
+        var global = typeof window !== "undefined" ? window : self;
+
+        definition(window.THREE || THREE);
+
+    } else {
+        throw new Error("This environment was not anticipated by three-onEvent. Please file a bug.");
+    }
+
+})(function (THREE) {
 var TargetList = {
 	'gaze': {},
 	'longGaze': {},
@@ -171,3 +196,4 @@ listenerList.hover = function (targetList,camera) {
 	    }
 	}, false)
 }
+});
