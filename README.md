@@ -1,5 +1,5 @@
 # three-onEvent
-Add  a EventListener for Mesh in your three.js project.
+Add  an EventListener for Mesh in your three.js project.
 
 Here is a quick start example
 ### Step1 
