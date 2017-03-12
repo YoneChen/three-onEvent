@@ -1,7 +1,22 @@
 # three-onEvent
 Add an EventListener for Mesh in your three.js project.
 
-## Quick Start 
+## Installation
+
+    $ npm install three-onevent --save
+    # or
+    $ yarn add three-onevent
+    # or add onEvent.js with '<script>' tag
+
+
+## Get Started
+It can be loaded as:
+
+-   ``require ('three-onevent.js')`` or ``import 'three-onevent.js'`` as a module in webpack or rollup
+-   use [onEvent.js]('https://github.com/yorkchan94/three-onEvent/onEvent.js') in browser ``<script src ='three-onevent/onEvent.js'>`` 
+
+## Tutorial
+* make sure you have import three.js 
 1. Init onEvent 
 ```
 // init your events container before render
@@ -9,7 +24,7 @@ Add an EventListener for Mesh in your three.js project.
 THREE.onEvent(myScene,myCamera);
 ```
 2. Add eventListener with 'on'
-* mesh.on(method:string,callback:function)
+> mesh.on(method:string,callback:function)
 ```
 var geo = new THREE.CubeGeometry(5,5,5);
 var mat = new THREE.MeshBasicMaterial({color:0x00aadd});
