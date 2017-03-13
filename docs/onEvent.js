@@ -172,15 +172,9 @@ listenerList.click = function (targetList,camera) {
 		if (Click && !!obj.callback[0]) obj.callback[0](targetMesh);
 		Click = false;
 	}
-	if (navigator.userAgent.match(/AppleWebKit.*Mobile.*/)) {
-		window.addEventListener('touchstart',down,false);
-		window.addEventListener('touchmove',move,false);
-		window.addEventListener('touchend',up,false);
-	} else {
 		window.addEventListener('mousedown',down,false);
 		window.addEventListener('mousemove',move,false);
 		window.addEventListener('mouseup',up,false);
-	}
 }
 // mesh on mouse hover
 listenerList.hover = function (targetList,camera) {

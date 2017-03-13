@@ -27,6 +27,7 @@
 	<section class="main-page">
 	</section>
 	<script src="./lib/three.min.js"></script>
+	<script src="./lib/OrbitControls.js"></script>
 	<script src="./onEvent.js"></script>
 	<script>
 	/**
@@ -43,7 +44,7 @@
 			this.scene = new THREE.Scene();
 			// 初始化相机
 			this.camera = new THREE.PerspectiveCamera(70,window.innerWidth/window.innerHeight,0.1,4000);
-			this.camera.position.set( 0, 0, 0 );
+			this.camera.position.set( 0, 0, 5 );
 			this.scene.add(this.camera);
 			// 初始化渲染器
 			this.renderer = new THREE.WebGLRenderer({ antialias: true } );
@@ -53,38 +54,39 @@
 			this.renderer.setPixelRatio(window.devicePixelRatio);
 			document.querySelector('.main-page').appendChild(this.renderer.domElement);
 
-
+			var controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
 			THREE.onEvent(this.scene,this.camera);
 
-			// 创建光线
+			// create light
 			this.createLight();
-			// 创建地面
+			// create ground
 			this.createGround(1000,1000);
 
-			// 创建立方体
+			// create cube
 			this.createCube();
 			this.createSphere();
-			// 事件绑定
-			this.bindEvent();
+			// window resize listener
+			this.resize();
 			this.render();
 		},
-		bindEvent: function() {
+		resize: function() {
 			var self = this;
 			window.addEventListener( 'resize', function() {
-				// 窗口调整重新调整渲染器
+				// update when resizing
 				self.camera.aspect = window.innerWidth / window.innerHeight;
 				self.camera.updateProjectionMatrix();
-				self.effect.setSize(window.innerWidth, window.innerHeight);
+				self.renderer.setSize( window.innerWidth, window.innerHeight );
 			}, false );
 		},
 		createCube: function () {
-			// 创建立方体
+			// create a cube
 			var geometry = new THREE.CubeGeometry( 20,20,20);
 			var material = new THREE.MeshLambertMaterial( { color: 0xef6500,needsUpdate: true,opacity:1,transparent:true} );
 			this.Cube = new THREE.Mesh( geometry, material );
 			this.Cube.position.set(20,0,-50);
 			this.Cube.castShadow = true;
 			this.scene.add(this.Cube);
+			// add hover listener
 			this.Cube.on('hover',function(m) {
 				m.material.opacity = 0.5;
 			},function(m) {
@@ -92,7 +94,7 @@
 			});
 		},
 		createSphere: function () {
-			// 创建立方体
+			// create a ball
 			var geometry = new THREE.SphereGeometry( 10,20,20);
 			var material = new THREE.MeshLambertMaterial( { color: 0xef6500,needsUpdate: true} );
 			var ball = new THREE.Mesh( geometry, material );
@@ -100,18 +102,20 @@
 			ball.castShadow = true;
 			this.scene.add(ball);
             var isclick = false;
+			// add click listener
 			ball.on('click',function(m) {
                 if(!isclick) {
+					m.position.y = 5;
                     m.scale.set(1.5,1.5,1.5);
                     isclick = true;
                 } else {
+					m.position.y = 0;
 				    m.scale.set(1,1,1);
                     isclick = false;
                 }
 			});
 		},
 		createLight: function() {
-			// 创建光线
 	        this.scene.add(new THREE.AmbientLight(0xFFFFFF));
 	        var light = new THREE.DirectionalLight( 0xffffff, 0.3 );
 			light.position.set( 50, 50, 50 );
@@ -127,17 +131,16 @@
 			this.scene.add( light );
 		},
 		createGround: function(width,height) {
-			// 创建地平面
-			this.gg = new THREE.PlaneBufferGeometry( width, height );
-			var gm = new THREE.MeshPhongMaterial( { color: 0xaaaaaa } );
-			this.ground = new THREE.Mesh( this.gg, gm );
-			this.ground.rotation.x = - Math.PI / 2;
-			this.ground.position.y = -10;
-			this.ground.receiveShadow = true;
-			this.scene.add( this.ground );
+			var geometry = new THREE.PlaneBufferGeometry( width, height );
+			var material = new THREE.MeshPhongMaterial( { color: 0xaaaaaa } );
+			var ground = new THREE.Mesh( geometry, material );
+			ground.rotation.x = - Math.PI / 2;
+			ground.position.y = -10;
+			ground.receiveShadow = true;
+			this.scene.add( ground );
 		},
 		render: function() {
-			// 启动渲染
+			// render
 			var self = this;
 			var render = function() {
 				self.Cube.rotation.y += 0.01;
