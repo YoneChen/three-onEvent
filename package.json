@@ -1,6 +1,6 @@
 {
   "name": "three-onevent",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "three.js Event Listener for click,gaze and so on",
   "main": "onEvent.js",
   "keywords": [
