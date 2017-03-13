@@ -24,7 +24,9 @@ It can be loaded as:
 THREE.onEvent(myScene,myCamera);
 ```
 2. Add eventListener with 'on'
+
 > mesh.on(method:string,callback:function)
+
 ```
 var geo = new THREE.CubeGeometry(5,5,5);
 var mat = new THREE.MeshBasicMaterial({color:0x00aadd});
@@ -39,7 +41,9 @@ myScene.add(mesh);
 mesh.off('click');
 ```
 ## More Method
+
 > method: string 'click','hover','gaze','longGaze'
+
 ```
 // hover eventLisener 
 mesh.on('hover',function(m) {
