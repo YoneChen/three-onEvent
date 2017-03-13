@@ -13,10 +13,10 @@ Add an EventListener for Mesh in your three.js project.
 It can be loaded as:
 
 -   ``require ('three-onevent.js')`` or ``import 'three-onevent.js'`` as a module in webpack or rollup
--   use [onEvent.js]('https://github.com/yorkchan94/three-onEvent/onEvent.js') in browser ``<script src ='three-onevent/onEvent.js'>`` 
+-   use [onEvent.js]('https://github.com/YorkChan94/three-onEvent/blob/master/onEvent.js') in browser ``<script src ='three-onevent/onEvent.js'>`` 
 
 ## Tutorial
-* make sure you have import three.js 
+* make sure you have import three.js.  See [examples]()
 1. Init onEvent 
 ```
 // init your events container before render
@@ -55,6 +55,7 @@ mesh.on('gaze',function(m) {
   // mesh is gazed in
   m.material.color = 0x00ddaa;
 },function(m) {
+  // mesh is gazed out
   m.material.color = 0x00aadd;
 })
 ```
