@@ -76,9 +76,12 @@ listenerList.gaze = function (targetList,camera) {
 	var gazeListener = function() {
 		// create a gazeListener loop
 		if (!!targetList) {
-			var list = [];
+			var list = [],objList = [];
 		    Eye.setFromCamera(new THREE.Vector2(),camera);
-		    Object.values(targetList).forEach(function(v,i){
+		    for(var key in targetList) {
+		    	objList.push(targetList[key])
+		    }
+		    objList.forEach(function(v,i){
 		    	list.push(v.mesh);
 		    })
 		    var intersects = Eye.intersectObjects(list);
