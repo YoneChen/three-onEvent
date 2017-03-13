@@ -112,9 +112,12 @@ listenerList.longGaze = function (targetList,camera) {
 	var start = null;
 	var gazeListener = function(timestamp) {
 		if (!!targetList) {
-			var list = [];
+			var list = [],objList = [];
 		    Eye.setFromCamera(new THREE.Vector2(),camera);
-		    Object.values(targetList).forEach(function(v,i){
+		    for(var key in targetList) {
+		    	objList.push(targetList[key])
+		    }
+		    objList.forEach(function(v,i){
 		    	list.push(v.mesh);
 		    })
 		    var intersects = Eye.intersectObjects(list);
@@ -149,9 +152,12 @@ listenerList.click = function (targetList,camera) {
 	function down(event) {
 		event.preventDefault();
 		if (!targetList) return;
-		var list = [];
+		var list = [],objList = [];
 		Mouse.setFromCamera(new THREE.Vector2(( event.clientX / window.innerWidth ) * 2 - 1,- ( event.clientY / window.innerHeight ) * 2 + 1), camera);
-	    Object.values(targetList).forEach(function(v,i){
+	    for(var key in targetList) {
+	    	objList.push(targetList[key])
+	    }
+		objList.forEach(function(v,i){
 	    	list.push(v.mesh);
 	    })
 	    var intersects = Mouse.intersectObjects(list);
@@ -186,9 +192,13 @@ listenerList.hover = function (targetList,camera) {
 	window.addEventListener('mousemove',function(event) {
 		event.preventDefault();
 		if (!targetList) return;
-		var list = [];
+		var list = [],objList = [];
 		Mouse.setFromCamera(new THREE.Vector2(( event.clientX / window.innerWidth ) * 2 - 1,- ( event.clientY / window.innerHeight ) * 2 + 1), camera);
-	    Object.values(targetList).forEach(function(v,i){
+	    
+	    for(var key in targetList) {
+	    	objList.push(targetList[key])
+	    }
+	    objList.forEach(function(v,i){
 	    	list.push(v.mesh);
 	    })
 	    var intersects = Mouse.intersectObjects(list);
