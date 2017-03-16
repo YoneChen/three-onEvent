@@ -63,7 +63,6 @@ mesh.on('gaze',function(m) {
   m.material.color = 0x00aadd;
 })
 ```
-
 ## Need Help?
 
 Ask questions [here](https://github.com/yorkchan94/three-onEvent/issues).
@@ -79,3 +78,5 @@ YorkChan <yorkchan94@gmail.com>
 ## License
 
 MIT
+
+Please Star this Project if you like it! Following would also be appreciated!
