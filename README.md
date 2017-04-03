@@ -114,7 +114,7 @@ THREE.onEvent(scene,camera);
 ```
 ### 添加监听器 "on"
 
-> 使用方法：mesh.on(method:string,callback:function) 这里的mesh指的是THREE.Mesh的实例
+> object3d.on(method:string,callback:function) 这里的object3d指的是THREE.Object3d的实例
 ```
 // 给一个立方体绑定点击事件
 var geo = new THREE.CubeGeometry(5,5,5);
