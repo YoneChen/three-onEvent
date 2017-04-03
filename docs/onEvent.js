@@ -26,7 +26,6 @@
 })(function (THREE) {
 var TargetList = {
 	'gaze': {},
-	'longGaze': {},
 	'click': {},
 	'hover': {}
 };

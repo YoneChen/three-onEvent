@@ -96,13 +96,21 @@
 		createSphere: function () {
 			// create a ball
 			var geometry = new THREE.SphereGeometry( 10,20,20);
-			var material = new THREE.MeshLambertMaterial( { color: 0xef6500,needsUpdate: true} );
+			var material = new THREE.MeshLambertMaterial( { color: 0xef6500,needsUpdate: true,opacity:1,transparent:true} );
 			var ball = new THREE.Mesh( geometry, material );
 			ball.position.set(-20,0,-50);
 			ball.castShadow = true;
 			this.scene.add(ball);
             var isclick = false;
 			// add click listener
+			// add hover listener
+			ball.on('hover',function(m) {
+				document.body.style.cursor = 'pointer';
+				m.material.opacity = 0.5;
+			},function(m) {
+				m.material.opacity = 1;
+				document.body.style.cursor = 'initial';
+			});
 			ball.on('click',function(m) {
                 if(!isclick) {
 					m.position.y = 5;
