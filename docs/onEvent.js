@@ -104,47 +104,6 @@ listenerList.gaze = function (targetList,camera) {
 	}
 	gazeListener();
 }
-// WebVR object3d on long gaze
-listenerList.longGaze = function (targetList,camera) {
-	var Gazing = false,targetObject,obj;
-	var DELAY_TIME = 1200;
-	var Eye = new THREE.Raycaster();
-	var start = null;
-	var gazeListener = function(timestamp) {
-		if (!!targetList) {
-			var list = [],objList = [];
-		    Eye.setFromCamera(new THREE.Vector2(),camera);
-		    for(var key in targetList) {
-		    	objList.push(targetList[key])
-		    }
-		    objList.forEach(function(v,i){
-		    	list.push(v.object3d);
-		    })
-		    var intersects = Eye.intersectObjects(list);
-		    
-		    if (intersects.length > 0) { 
-		    	if(!Gazing) { // gaze event trigger
-					if (!start) start = timestamp;
-		  			var delay = timestamp - start;
-			    	if( delay > DELAY_TIME) { // 2 seconds
-			    		Gazing = true;
-				      	targetObject = intersects[0].object;
-				      	obj = targetList[targetObject.id];
-				      	if(!!obj.callback[0]) obj.callback[0](targetObject);
-			      	}
-		      	}
-		    } else{ 
-		    	start = null;
-		    	if(Gazing && !!obj.callback[1]) {
-		      		obj.callback[1](targetObject);
-		    	}
-		    	Gazing = false;
-		    }
-		}
-		requestAnimationFrame(gazeListener);
-	}
-	gazeListener();
-}
 // object3d on mouse click 
 listenerList.click = function (targetList,camera) {
 	var targetObject,obj,Click = false,Down = false;

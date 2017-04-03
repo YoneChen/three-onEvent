@@ -135,7 +135,7 @@ mesh.off('click');
 
 ### method可选参数
 
-> method: string 'click','hover','gaze','longGaze'
+> method: string 'click','hover','gaze'
 
 ```
 // hover鼠标悬停监听 
