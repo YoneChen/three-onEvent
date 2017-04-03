@@ -1,11 +1,11 @@
 (function (definition) {
     "use strict";
-    if (!(window.THREE || THREE)) {
+    if (!THREE) {
     	throw new Error("This module is dependent from 'three.js,add this file first.");
     }
     // CommonJS
     if (typeof exports === "object" && typeof module === "object") {
-        module.exports = definition(window.THREE || THREE);
+        module.exports = definition(THREE);
 
     // RequireJS
     } else if (typeof define === "function" && define.amd) {
@@ -17,7 +17,7 @@
         // non-windowed contexts.
         var global = typeof window !== "undefined" ? window : self;
 
-        definition(window.THREE || THREE);
+        definition(THREE);
 
     } else {
         throw new Error("This environment was not anticipated by three-onEvent. Please file a bug.");
@@ -45,11 +45,11 @@ THREE.onEvent = function(scene,camera) {
 	option.scene = scene || {};
 	option.camera = camera || {};
 }
-Object.assign(THREE.Mesh.prototype,{
+Object.assign(THREE.Object3D.prototype,{
 	on: function(method,callback1,callback2) {
 		if (EventListeners.hasOwnProperty(method)) {
 			TargetList[method][this.id] = {
-				mesh : this,
+				object3d : this,
 				callback: Array.from(arguments).slice(1)
 			};
 			var eventlistener = EventListeners[method];
@@ -69,9 +69,9 @@ Object.assign(THREE.Mesh.prototype,{
 		}
 	}
 });
-// WebVR mesh on gazer
+// WebVR object3d on gazer
 listenerList.gaze = function (targetList,camera) {
-	var Gazing = false,targetMesh,obj;
+	var Gazing = false,targetObject,obj;
 	var Eye = new THREE.Raycaster();
 	var gazeListener = function() {
 		// create a gazeListener loop
@@ -82,20 +82,20 @@ listenerList.gaze = function (targetList,camera) {
 		    	objList.push(targetList[key])
 		    }
 		    objList.forEach(function(v,i){
-		    	list.push(v.mesh);
+		    	list.push(v.object3d);
 		    })
 		    var intersects = Eye.intersectObjects(list);
 		    
 		    if (intersects.length > 0) {
 		    	if(!Gazing) { //trigger once when gaze in
 			    	Gazing = true;
-			      	targetMesh = intersects[0].object;
-			      	obj = targetList[targetMesh.id];
-			      	if(!!obj.callback[0]) obj.callback[0](targetMesh);
+			      	targetObject = intersects[0].object;
+			      	obj = targetList[targetObject.id];
+			      	if(!!obj.callback[0]) obj.callback[0](targetObject);
 		      	}
 		    } else{ 
 		    	if(Gazing && !!obj.callback[1]) {
-		      		obj.callback[1](targetMesh);
+		      		obj.callback[1](targetObject);
 		    	}
 		    	Gazing = false;
 		    }
@@ -104,9 +104,9 @@ listenerList.gaze = function (targetList,camera) {
 	}
 	gazeListener();
 }
-// WebVR mesh on long gaze
+// WebVR object3d on long gaze
 listenerList.longGaze = function (targetList,camera) {
-	var Gazing = false,targetMesh,obj;
+	var Gazing = false,targetObject,obj;
 	var DELAY_TIME = 1200;
 	var Eye = new THREE.Raycaster();
 	var start = null;
@@ -118,7 +118,7 @@ listenerList.longGaze = function (targetList,camera) {
 		    	objList.push(targetList[key])
 		    }
 		    objList.forEach(function(v,i){
-		    	list.push(v.mesh);
+		    	list.push(v.object3d);
 		    })
 		    var intersects = Eye.intersectObjects(list);
 		    
@@ -128,15 +128,15 @@ listenerList.longGaze = function (targetList,camera) {
 		  			var delay = timestamp - start;
 			    	if( delay > DELAY_TIME) { // 2 seconds
 			    		Gazing = true;
-				      	targetMesh = intersects[0].object;
-				      	obj = targetList[targetMesh.id];
-				      	if(!!obj.callback[0]) obj.callback[0](targetMesh);
+				      	targetObject = intersects[0].object;
+				      	obj = targetList[targetObject.id];
+				      	if(!!obj.callback[0]) obj.callback[0](targetObject);
 			      	}
 		      	}
 		    } else{ 
 		    	start = null;
 		    	if(Gazing && !!obj.callback[1]) {
-		      		obj.callback[1](targetMesh);
+		      		obj.callback[1](targetObject);
 		    	}
 		    	Gazing = false;
 		    }
@@ -145,9 +145,9 @@ listenerList.longGaze = function (targetList,camera) {
 	}
 	gazeListener();
 }
-// mesh on mouse click 
+// object3d on mouse click 
 listenerList.click = function (targetList,camera) {
-	var targetMesh,obj,Click = false,Down = false;
+	var targetObject,obj,Click = false,Down = false;
 	var Mouse = new THREE.Raycaster();
 	function down(event) {
 		event.preventDefault();
@@ -158,15 +158,15 @@ listenerList.click = function (targetList,camera) {
 	    	objList.push(targetList[key])
 	    }
 		objList.forEach(function(v,i){
-	    	list.push(v.mesh);
+	    	list.push(v.object3d);
 	    })
 	    var intersects = Mouse.intersectObjects(list);
 	    
 	    if (intersects.length > 0) { // mouse down trigger
 	    	if (Click) return;
 	    	Click = true;
-	      	targetMesh = intersects[0].object;
-	      	obj = targetList[targetMesh.id];
+	      	targetObject = intersects[0].object;
+	      	obj = targetList[targetObject.id];
 	    } else {
 	    	Click = false;
 	    }
@@ -178,16 +178,16 @@ listenerList.click = function (targetList,camera) {
 	}
 	function up(event) {
 		event.preventDefault();
-		if (Click && !!obj.callback[0]) obj.callback[0](targetMesh);
+		if (Click && !!obj.callback[0]) obj.callback[0](targetObject);
 		Click = false;
 	}
 		window.addEventListener('mousedown',down,false);
 		window.addEventListener('mousemove',move,false);
 		window.addEventListener('mouseup',up,false);
 }
-// mesh on mouse hover
+// object3d on mouse hover
 listenerList.hover = function (targetList,camera) {
-	var targetMesh,obj,Hover = false;
+	var targetObject,obj,Hover = false;
 	var Mouse = new THREE.Raycaster();
 	window.addEventListener('mousemove',function(event) {
 		event.preventDefault();
@@ -199,19 +199,19 @@ listenerList.hover = function (targetList,camera) {
 	    	objList.push(targetList[key])
 	    }
 	    objList.forEach(function(v,i){
-	    	list.push(v.mesh);
+	    	list.push(v.object3d);
 	    })
 	    var intersects = Mouse.intersectObjects(list);
 	    
 	    if (intersects.length > 0) {
 	    	if (Hover) return;
 	    	Hover = true;
-	      	targetMesh = intersects[0].object;
-	      	obj = targetList[targetMesh.id];
-	      	if(!!obj.callback[0]) obj.callback[0](targetMesh);
+	      	targetObject = intersects[0].object;
+	      	obj = targetList[targetObject.id];
+	      	if(!!obj.callback[0]) obj.callback[0](targetObject);
 	    } else {
 	    	if(Hover && !!obj.callback[1]) {
-	    		obj.callback[1](targetMesh);
+	    		obj.callback[1](targetObject);
 	    	}
 	    	Hover = false;
 	    }

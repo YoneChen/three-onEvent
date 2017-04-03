@@ -1,5 +1,5 @@
 # three-onEvent
-Add an EventListener for Mesh in your three.js project.
+Add an EventListener for Object3d in your three.js project.
 
 ## Installation
 
@@ -25,7 +25,7 @@ THREE.onEvent(myScene,myCamera);
 ```
 2. Add eventListener with 'on'
 
-> mesh.on(method:string,callback:function)
+> object3d.on(method:string,callback:function)
 
 ```
 var geo = new THREE.CubeGeometry(5,5,5);
@@ -42,7 +42,7 @@ mesh.off('click');
 ```
 ## More Method
 
-> method: string 'click','hover','gaze','longGaze'
+> method: string 'click','hover','gaze'
 
 ```
 // hover eventLisener 
