@@ -50,7 +50,7 @@ onEvent.removeAll();
 ```
 ## More Method
 
-> method: string 'click','hover','gaze'
+> method: string 'click','hover',['gaze'](https://yorkchan94.github.io/webvr-webpack2-boilerplate/dist/)
 
 ```
 // hover eventLisener 
