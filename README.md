@@ -36,9 +36,17 @@ mesh.on('click',function(m) {
 })
 myScene.add(mesh);
 ```
-3. Remove event with 'off'
+3. Remove event with 'off' from Object3d
 ```
-mesh.off('click');
+mesh.off('click'); // remove click event from mesh
+mesh.off(); // remove all events from mesh
+```
+4. Remove all events
+```
+var onEvent = THREE.onEvent(myScene,myCamera);
+...
+//remove all events from all Object3d
+onEvent.removeAll();
 ```
 ## More Method
 
@@ -83,7 +91,7 @@ Please Star this Project if you like it! Following would also be appreciated!
 
 
 # three-onEvent中文文档
-一款实用的three.js监听事件插件
+一款实用的three.js监听事件插件，支持3d物体点击、悬停、凝视事件绑定。
 ## 安装
 
     $ npm install three-onevent --save
@@ -112,7 +120,7 @@ scene.add(WebVR.Camera);
 THREE.onEvent(scene,camera);
 ...Render渲染...
 ```
-### 添加监听器 "on"
+### 绑定事件 "on"
 
 > object3d.on(method:string,callback:function) 这里的object3d指的是THREE.Object3d的实例
 ```
@@ -125,14 +133,22 @@ mesh.on('click',function(m) {
 })
 myScene.add(mesh);
 ```
-### 移除监听器 "off"
+### 移除事件 "off"
 
 > 使用方法: mesh.off(method:stiring)
 ```
 //移除点击事件
 mesh.off('click');
+//参数为空则移除所有绑定事件
+mesh.off();
 ```
-
+### 移除所有物体监听器 
+```
+var onEvent = THREE.onEvent(myScene,myCamera);
+...
+//移除已绑定的所有事件
+onEvent.removeAll();
+```
 ### method可选参数
 
 > method: string 'click','hover','gaze'

@@ -36,13 +36,20 @@ Object.keys(TargetList).forEach(function(v,i) {
 		listener: function(targetList) {
 			listenerList[v](targetList,option.camera);
 		}
-	}
+	};
 });
 var option = {};
 
 THREE.onEvent = function(scene,camera) {
 	option.scene = scene || {};
 	option.camera = camera || {};
+}
+THREE.onEvent.prototype.removeAll = function() {
+	for(var key in TargetList) {
+		for(var id in TargetList[key]) {
+			delete TargetList[key][id];
+		}
+	}
 }
 Object.assign(THREE.Object3D.prototype,{
 	on: function(method,callback1,callback2) {
@@ -61,10 +68,16 @@ Object.assign(THREE.Object3D.prototype,{
 		}
 	},
 	off: function(method) {
-		if (EventListeners.hasOwnProperty(method)) {
-			delete TargetList[method][this.id];
+		if (!!method) {
+			if (EventListeners.hasOwnProperty(method)) {
+				delete TargetList[method][this.id];
+			} else {
+				console.warn("There is no method called '" + method + "';");
+			}
 		} else {
-			console.warn("There is no method called '" + method + "';");
+			for(var key in TargetList) {
+				delete TargetList[key][this.id];
+			}
 		}
 	}
 });
@@ -74,7 +87,8 @@ listenerList.gaze = function (targetList,camera) {
 	var Eye = new THREE.Raycaster();
 	var gazeListener = function() {
 		// create a gazeListener loop
-		if (!!targetList) {
+		requestAnimationFrame(gazeListener);
+		if (!!targetList ) {
 			var list = [],objList = [];
 		    Eye.setFromCamera(new THREE.Vector2(),camera);
 		    for(var key in targetList) {
@@ -99,7 +113,6 @@ listenerList.gaze = function (targetList,camera) {
 		    	Gazing = false;
 		    }
 		}
-		requestAnimationFrame(gazeListener);
 	}
 	gazeListener();
 }
