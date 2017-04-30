@@ -1,5 +1,5 @@
 # three-onEvent
-Add an EventListener for Object3d in your three.js project.
+Add an EventListener for Object3d (Mesh,Group) in your three.js project.
 
 ## Installation
 

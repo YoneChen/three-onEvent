@@ -81,6 +81,35 @@ Object.assign(THREE.Object3D.prototype,{
 		}
 	}
 });
+function getObjList(targetList) {
+	var list = [];
+	for(var key in targetList) {
+		var target = targetList[key].object3d;
+		list.push(target);
+	}
+	return group2meshlist(list);
+}
+function group2meshlist(list) {
+	var l = [];
+	for (var i in list) {
+		if (list[i].type === 'Group') {
+			l = l.concat(group2meshlist(list[i].children));
+		} else {
+			l.push(list[i])
+		}
+	}
+	return l;
+}
+function getEventObj(targetList,object3d) {
+	return object2group(targetList,object3d);
+}
+function object2group(targetList,object3d) {
+	if(targetList[object3d.id]) {
+		return targetList[object3d.id];
+	} else {
+		return object2group(targetList,object3d.parent)
+	}
+}
 // WebVR object3d on gazer
 listenerList.gaze = function (targetList,camera) {
 	var Gazing = false,targetObject,obj;
@@ -89,21 +118,16 @@ listenerList.gaze = function (targetList,camera) {
 		// create a gazeListener loop
 		requestAnimationFrame(gazeListener);
 		if (!!targetList ) {
-			var list = [],objList = [];
+			var list = [];
 		    Eye.setFromCamera(new THREE.Vector2(),camera);
-		    for(var key in targetList) {
-		    	objList.push(targetList[key])
-		    }
-		    objList.forEach(function(v,i){
-		    	list.push(v.object3d);
-		    })
+		    list = getObjList(targetList);
 		    var intersects = Eye.intersectObjects(list);
 		    
 		    if (intersects.length > 0) {
 		    	if(!Gazing) { //trigger once when gaze in
 			    	Gazing = true;
 			      	targetObject = intersects[0].object;
-			      	obj = targetList[targetObject.id];
+			      	obj = getEventObj(targetList,targetObject);
 			      	if(!!obj.callback[0]) obj.callback[0](targetObject);
 		      	}
 		    } else{ 
@@ -123,21 +147,16 @@ listenerList.click = function (targetList,camera) {
 	function down(event) {
 		event.preventDefault();
 		if (!targetList) return;
-		var list = [],objList = [];
+		var list = [];
 		Mouse.setFromCamera(new THREE.Vector2(( event.clientX / window.innerWidth ) * 2 - 1,- ( event.clientY / window.innerHeight ) * 2 + 1), camera);
-	    for(var key in targetList) {
-	    	objList.push(targetList[key])
-	    }
-		objList.forEach(function(v,i){
-	    	list.push(v.object3d);
-	    })
+	    list = getObjList(targetList);
 	    var intersects = Mouse.intersectObjects(list);
 	    
 	    if (intersects.length > 0) { // mouse down trigger
 	    	if (Click) return;
 	    	Click = true;
 	      	targetObject = intersects[0].object;
-	      	obj = targetList[targetObject.id];
+	      	obj = getEventObj(targetList,targetObject);
 	    } else {
 	    	Click = false;
 	    }
@@ -163,22 +182,17 @@ listenerList.hover = function (targetList,camera) {
 	window.addEventListener('mousemove',function(event) {
 		event.preventDefault();
 		if (!targetList) return;
-		var list = [],objList = [];
+		var list = [];
 		Mouse.setFromCamera(new THREE.Vector2(( event.clientX / window.innerWidth ) * 2 - 1,- ( event.clientY / window.innerHeight ) * 2 + 1), camera);
 	    
-	    for(var key in targetList) {
-	    	objList.push(targetList[key])
-	    }
-	    objList.forEach(function(v,i){
-	    	list.push(v.object3d);
-	    })
+	    list = getObjList(targetList);
 	    var intersects = Mouse.intersectObjects(list);
 	    
 	    if (intersects.length > 0) {
 	    	if (Hover) return;
 	    	Hover = true;
 	      	targetObject = intersects[0].object;
-	      	obj = targetList[targetObject.id];
+	      	obj = getEventObj(targetList,targetObject);
 	      	if(!!obj.callback[0]) obj.callback[0](targetObject);
 	    } else {
 	    	if(Hover && !!obj.callback[1]) {
