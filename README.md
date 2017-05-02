@@ -95,17 +95,18 @@ Please Star this Project if you like it! Following would also be appreciated!
 
 
 # three-onEvent中文文档
-一款实用的three.js监听事件插件，支持3d物体点击、悬停、凝视事件绑定。
+一款实用的three.js监听事件插件，支持3d物体（mesh,group）点击、悬停、凝视事件绑定。
+
 ## 安装
 
     $ npm install three-onevent --save
-    # 或者
-    $ yarn add three-onevent
-    # 或直接在页面 '<script>' 中引用onEvent.js
-
+    # 或者
+    $ yarn add three-onevent
+    # 或者在页面引入 '<script type="javascript "src="onEvent.js">'
 
 
 ## 开始
+
 ### 引用方式
 
 -   1.node：webpack或者rollup模块引入：``require ('three-onevent.js')`` 或者 ``import 'three-onevent.js'``
