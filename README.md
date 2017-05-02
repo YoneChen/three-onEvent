@@ -19,9 +19,13 @@ It can be loaded as:
 * make sure you have import three.js.  See [examples](https://yorkchan94.github.io/three-onEvent/example.html)
 1. Init onEvent 
 ```
+var scene = new THREE.Scene()
+var camera = new THREE.PerspectiveCamera(fov,window.innerWidth/window.innerHeight,0.1,10000);
+camera.position.set( 0, 0, 0 );
+scene.add(camera);
 // init your events container before render
 // Require THREE.scene and THREE.camera as param
-THREE.onEvent(myScene,myCamera);
+THREE.onEvent(scene,camera);
 ```
 2. Add eventListener with 'on'
 
@@ -43,7 +47,7 @@ mesh.off(); // remove all events from mesh
 ```
 4. Remove all events
 ```
-var onEvent = THREE.onEvent(myScene,myCamera);
+var onEvent = THREE.onEvent(scene,camera);
 ...
 //remove all events from all Object3d
 onEvent.removeAll();
@@ -116,7 +120,7 @@ Please Star this Project if you like it! Following would also be appreciated!
 var scene = new THREE.Scene()
 var camera = new THREE.PerspectiveCamera(fov,window.innerWidth/window.innerHeight,0.1,10000);
 camera.position.set( 0, 0, 0 );
-scene.add(WebVR.Camera);
+scene.add(camera);
 THREE.onEvent(scene,camera);
 ...Render渲染...
 ```
@@ -144,7 +148,7 @@ mesh.off();
 ```
 ### 移除所有物体监听器 
 ```
-var onEvent = THREE.onEvent(myScene,myCamera);
+var onEvent = THREE.onEvent(scene,camera);
 ...
 //移除已绑定的所有事件
 onEvent.removeAll();
