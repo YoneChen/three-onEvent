@@ -89,10 +89,9 @@ mesh.on('gaze',function(m) {
 // render loop
 function animate() {
   requestAnimationFrame(render);
-
-  threeOnEvent.update(); // update gaze loop 
-  
   renderer.render();
+  // update gaze loop 
+  threeOnEvent.update(); 
 }
 animate();
 ```
@@ -210,10 +209,9 @@ mesh.on('gaze',function(m) {
 // 动画渲染
 function animate() {
   requestAnimationFrame(render);
-
-  threeOnEvent.update(); // 更新gaze凝视流 
-
   renderer.render();
+  // 更新gaze凝视流 
+  threeOnEvent.update(); 
 }
 animate();
 ```
