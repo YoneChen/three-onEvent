@@ -23,9 +23,21 @@ var scene = new THREE.Scene()
 var camera = new THREE.PerspectiveCamera(fov,window.innerWidth/window.innerHeight,0.1,10000);
 camera.position.set( 0, 0, 0 );
 scene.add(camera);
-// init your events container before render
+var renderer = new THREE.WebGLRenderer({ antialias: true } );
+renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+
+// init your events container before renderer.render()
 // Require THREE.scene and THREE.camera as param
-THREE.onEvent(scene,camera);
+var threeOnEvent = new THREE.onEvent(scene,camera);
+
+...
+
+function animate() {
+  requestAnimationFrame(render);
+  renderer.render();
+}
+animate();
 ```
 2. Add eventListener with 'on'
 
@@ -35,10 +47,10 @@ THREE.onEvent(scene,camera);
 var geo = new THREE.CubeGeometry(5,5,5);
 var mat = new THREE.MeshBasicMaterial({color:0x00aadd});
 var mesh = new THREE.Mesh(geo,mat);
+scene.add(mesh);
 mesh.on('click',function(m) {
   m.scale.set(2,2,2); // m is link to mesh
 })
-myScene.add(mesh);
 ```
 3. Remove event with 'off' from Object3d
 ```
@@ -47,10 +59,8 @@ mesh.off(); // remove all events from mesh
 ```
 4. Remove all events
 ```
-var onEvent = THREE.onEvent(scene,camera);
-...
 //remove all events from all Object3d
-onEvent.removeAll();
+threeOnEvent.removeAll();
 ```
 ## More Method
 
@@ -65,7 +75,9 @@ mesh.on('hover',function(m) {
   // mouse leave out the mesh
   m.scale.set(1,1,1);
 });
+```
 
+```
 // webvr gaze eventListener
 mesh.on('gaze',function(m) {
   // mesh is gazed in
@@ -73,7 +85,16 @@ mesh.on('gaze',function(m) {
 },function(m) {
   // mesh is gazed out
   m.material.color = 0x00aadd;
-})
+});
+// render loop
+function animate() {
+  requestAnimationFrame(render);
+
+  threeOnEvent.update(); // update gaze loop 
+  
+  renderer.render();
+}
+animate();
 ```
 ## Need Help?
 
@@ -116,14 +137,24 @@ Please Star this Project if you like it! Following would also be appreciated!
 * 请确保已经引用three.js.  See [examples](https://yorkchan94.github.io/three-onEvent/example.html)
 > 使用方法：THREE.onEvent(scene:THREE.Scene,camera:THREE.Camera);
 ```
-// 在render渲染之前初始化
-// 传入场景和相机
 var scene = new THREE.Scene()
 var camera = new THREE.PerspectiveCamera(fov,window.innerWidth/window.innerHeight,0.1,10000);
 camera.position.set( 0, 0, 0 );
 scene.add(camera);
-THREE.onEvent(scene,camera);
-...Render渲染...
+var renderer = new THREE.WebGLRenderer({ antialias: true } );
+renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+
+// 在render渲染之前初始化
+// 传入场景和相机
+var threeOnEvent = new THREE.onEvent(scene,camera);
+
+// 动画渲染
+function animate() {
+  requestAnimationFrame(render);
+  renderer.render();
+}
+animate();
 ```
 ### 绑定事件 "on"
 
@@ -136,7 +167,7 @@ var mesh = new THREE.Mesh(geo,mat);
 mesh.on('click',function(m) {
   m.scale.set(2,2,2); // m指向mesh
 })
-myScene.add(mesh);
+scene.add(mesh);
 ```
 ### 移除事件 "off"
 
@@ -149,10 +180,8 @@ mesh.off();
 ```
 ### 移除所有物体监听器 
 ```
-var onEvent = THREE.onEvent(scene,camera);
-...
 //移除已绑定的所有事件
-onEvent.removeAll();
+threeOnEvent.removeAll();
 ```
 ### method可选参数
 
@@ -167,7 +196,9 @@ mesh.on('hover',function(m) {
   // mouse leave out the mesh
   m.scale.set(1,1,1);
 });
+```
 
+```
 // webvr gaze凝视监听
 mesh.on('gaze',function(m) {
   // mesh is gazed in
@@ -175,5 +206,14 @@ mesh.on('gaze',function(m) {
 },function(m) {
   // mesh is gazed out
   m.material.color = 0x00aadd;
-})
+});
+// 动画渲染
+function animate() {
+  requestAnimationFrame(render);
+
+  threeOnEvent.update(); // 更新gaze凝视流 
+
+  renderer.render();
+}
+animate();
 ```

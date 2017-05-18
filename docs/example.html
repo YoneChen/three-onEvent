@@ -55,7 +55,7 @@
 			document.querySelector('.main-page').appendChild(this.renderer.domElement);
 
 			var controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
-			THREE.onEvent(this.scene,this.camera);
+			this.threeOnEvent = new THREE.onEvent(this.scene,this.camera);
 
 			// create light
 			this.createLight();
@@ -153,6 +153,7 @@
 			var render = function() {
 				self.Cube.rotation.y += 0.01;
 				self.renderer.render(self.scene, self.camera);
+				// self.threeOnEvent.update(); // gaze event needed
 				requestAnimationFrame(render);
 			}
 			render();

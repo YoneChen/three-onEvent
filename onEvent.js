@@ -29,6 +29,7 @@ var TargetList = {
 	'click': {},
 	'hover': {}
 };
+var updateCallbackList = [];
 var EventListeners = {},listenerList = {};
 Object.keys(TargetList).forEach(function(v,i) {
 	EventListeners[v] = {
@@ -49,6 +50,11 @@ THREE.onEvent.prototype.removeAll = function() {
 		for(var id in TargetList[key]) {
 			delete TargetList[key][id];
 		}
+	}
+}
+THREE.onEvent.prototype.update = function() {
+	for(var key in updateCallbackList) {
+		updateCallbackList[key]();
 	}
 }
 Object.assign(THREE.Object3D.prototype,{
@@ -116,7 +122,6 @@ listenerList.gaze = function (targetList,camera) {
 	var Eye = new THREE.Raycaster();
 	var gazeListener = function() {
 		// create a gazeListener loop
-		requestAnimationFrame(gazeListener);
 		if (!!targetList ) {
 			var list = [];
 		    Eye.setFromCamera(new THREE.Vector2(),camera);
@@ -138,7 +143,7 @@ listenerList.gaze = function (targetList,camera) {
 		    }
 		}
 	}
-	gazeListener();
+	updateCallbackList.push(gazeListener);
 }
 // object3d on mouse click 
 listenerList.click = function (targetList,camera) {
