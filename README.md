@@ -13,10 +13,10 @@ Add an EventListener for Object3d (Mesh,Group) in your three.js project.
 It can be loaded as:
 
 -   ``require ('three-onevent.js')`` or ``import 'three-onevent.js'`` as a module in webpack or rollup
--   use [onEvent.js]('https://github.com/YorkChan94/three-onEvent/blob/master/onEvent.js') in browser ``<script src ='three-onevent/onEvent.js'>`` 
+-   use [onEvent.js]('https://github.com/YoneChen/three-onEvent/blob/master/onEvent.js') in browser ``<script src ='three-onevent/onEvent.js'>`` 
 
 ## Tutorial
-* make sure you have import three.js.  See [examples](https://yorkchan94.github.io/three-onEvent/example.html)
+* make sure you have import three.js.  See [examples](https://yonechen.github.io/three-onEvent/example.html)
 1. Init onEvent 
 ```
 var scene = new THREE.Scene()
@@ -64,7 +64,7 @@ threeOnEvent.removeAll();
 ```
 ## More Method
 
-> method: string 'click','hover',['gaze'](https://yorkchan94.github.io/webvr-webpack2-boilerplate/dist/)
+> method: string 'click','hover',['gaze'](https://yonechen.github.io/webvr-webpack2-boilerplate/dist/)
 
 ```
 // hover eventLisener 
@@ -97,15 +97,15 @@ animate();
 ```
 ## Need Help?
 
-Ask questions [here](https://github.com/yorkchan94/three-onEvent/issues).
+Ask questions [here](https://github.com/yonechen/three-onEvent/issues).
 
 ## Any advise?
 
-PR welcome [here](https://github.com/yorkchan94/three-onEvent/pulls).
+PR welcome [here](https://github.com/yonechen/three-onEvent/pulls).
 
 ## Contributors
 
-YorkChan <yorkchan94@gmail.com>
+YoneChen <yorkchan94@gmail.com>
 
 ## License
 
@@ -130,10 +130,10 @@ Please Star this Project if you like it! Following would also be appreciated!
 ### 引用方式
 
 -   1.node：webpack或者rollup模块引入：``require ('three-onevent.js')`` 或者 ``import 'three-onevent.js'``
--   2.浏览器：在html引入[onEvent.js]('https://github.com/YorkChan94/three-onEvent/blob/master/onEvent.js') ``<script src ='three-onevent/onEvent.js'>`` 
+-   2.浏览器：在html引入[onEvent.js]('https://github.com/YoneChen/three-onEvent/blob/master/onEvent.js') ``<script src ='three-onevent/onEvent.js'>`` 
 
 ### 初始化
-* 请确保已经引用three.js.  See [examples](https://yorkchan94.github.io/three-onEvent/example.html)
+* 请确保已经引用three.js.  See [examples](https://yonechen.github.io/three-onEvent/example.html)
 > 使用方法：THREE.onEvent(scene:THREE.Scene,camera:THREE.Camera);
 ```
 var scene = new THREE.Scene()
