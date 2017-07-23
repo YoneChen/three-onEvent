@@ -13,12 +13,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yorkchan94/three-onEvent.git"
+    "url": "git+https://github.com/yonechen/three-onEvent.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "York Chan",
+  "author": "Yone Chen",
   "bugs": {
     "url": "https://github.com/yorkchan94/three-onEvent/issues"
   },
