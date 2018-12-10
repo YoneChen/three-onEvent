@@ -17,7 +17,7 @@ It can be loaded as:
 
 ## Tutorial
 * make sure you have import three.js.  See [examples](https://yonechen.github.io/three-onEvent/example.html)
-1. Init onEvent 
+### 1. Init onEvent 
 ```
 var scene = new THREE.Scene()
 var camera = new THREE.PerspectiveCamera(fov,window.innerWidth/window.innerHeight,0.1,10000);
@@ -39,7 +39,7 @@ function animate() {
 }
 animate();
 ```
-2. Add eventListener with 'on'
+### 2. Add eventListener with 'on'
 
 > object3d.on(method:string,callback:function)
 
@@ -52,19 +52,22 @@ mesh.on('click',function(m) {
   m.scale.set(2,2,2); // m is link to mesh
 })
 ```
-3. Remove event with 'off' from Object3d
+### 3. Remove event with 'off' from Object3d
 ```
 mesh.off('click'); // remove click event from mesh
 mesh.off(); // remove all events from mesh
 ```
-4. Remove all events
+### 4. Remove all events
 ```
 //remove all events from all Object3d
 threeOnEvent.removeAll();
 ```
 ## More Method
 
-> method: string 'click','hover',['gaze'](https://yonechen.github.io/webvr-webpack2-boilerplate/dist/)
+> method: string 'click','hover',['gaze'](https://yonechen.github.io/webvr-webpack-boilerplate/dist/)
+- click
+- hover
+- gaze
 
 ```
 // hover eventLisener 
@@ -113,6 +116,7 @@ MIT
 
 Please Star this Project if you like it! Following would also be appreciated!
 
+-------
 
 # three-onEvent中文文档
 一款实用的three.js监听事件插件，支持3d物体（mesh,group）点击、悬停、凝视事件绑定。
