@@ -27,7 +27,6 @@
 	<section class="main-page">
 	</section>
 	<script src="./lib/three.min.js"></script>
-	<script src="./lib/OrbitControls.js"></script>
 	<script src="./onEvent.js"></script>
 	<script>
 	/**
@@ -54,7 +53,6 @@
 			this.renderer.setPixelRatio(window.devicePixelRatio);
 			document.querySelector('.main-page').appendChild(this.renderer.domElement);
 
-			var controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
 			this.threeOnEvent = new THREE.onEvent(this.scene,this.camera);
 
 			// create light
